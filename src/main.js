@@ -10,19 +10,27 @@ const dragCake = (target) => {
         };
 
         return (
-            interact(item).draggable({
-                listeners: {
-                    start(event) {
-                        console.log(event.type, event.target)
-                    },
-                    move(event) {
-                        position.x += event.dx
-                        position.y += event.dy
+            interact(item)
+                .draggable({
+                    inertia: true,
+                    modifiers: [
+                        interact.modifiers.restrictRect({
+                            restriction: 'parent',
+                            endOnly: true
+                        })
+                    ],
+                    listeners: {
+                        start(event) {
+                            console.log(event.type, event.target)
+                        },
+                        move(event) {
+                            position.x += event.dx
+                            position.y += event.dy
 
-                        event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+                            event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+                        }
                     }
-                }
-            })
+                })
         )
     })
 }
