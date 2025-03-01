@@ -1,6 +1,16 @@
 import './style.css'
 import interact from 'interactjs'
 
+const dragMoveListener = (event) => {
+    let target = event.target
+    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+    target.setAttribute('data-x', x)
+    target.setAttribute('data-y', y)
+}
+
 const dragCake = (target) => {
     target.map((item) => {
 
@@ -23,12 +33,7 @@ const dragCake = (target) => {
                         start(event) {
                             console.log(event.type, event.target)
                         },
-                        move(event) {
-                            position.x += event.dx
-                            position.y += event.dy
-
-                            event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
-                        }
+                        move: dragMoveListener
                     }
                 })
         )
