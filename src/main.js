@@ -13,12 +13,6 @@ const dragMoveListener = (event) => {
 
 const dragCake = (target) => {
     target.map((item) => {
-
-        const position = {
-            x: 0,
-            y: 0
-        };
-
         return (
             interact(item)
                 .draggable({
